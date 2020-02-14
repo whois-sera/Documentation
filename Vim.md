@@ -1,0 +1,5 @@
+- i -> Insertion
+- ech -> Back in command mode
+- :w -> save
+- :q -> quit
+- :q! -> quit without saving
