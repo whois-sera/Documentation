@@ -1,2 +1,0 @@
-- [Simple API PHP](https://developer.okta.com/blog/2019/03/08/simple-rest-api-php)
-- [Doctrine Associations](https://symfony.com/doc/current/doctrine/associations.html)
