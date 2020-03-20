@@ -7,7 +7,7 @@ docker pull sonarqube
 # Start
 
 ```
-docker run -d --name sonarqube -p 9000:9000 sonarqube
+docker run -d --name sonarqube -p 9000:9000
 ```
 
 Accessible at http://localhost:9000

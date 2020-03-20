@@ -10,42 +10,70 @@ composer create-project --prefer-dist laravel/laravel seraplanning
 
 ```
 composer require laravel\ui
+php artisan ui vue
 php artisan ui vue --auth
 npm install
 npm run dev
 ```
 
-# Serve 
+## Airlock Install
 
+```
+composer require laravel/airlock
+php artisan vendor:publish --provider="Laravel\Airlock\AirlockServiceProvider"
+php artisan migrate
+```
+
+- In app/Http/Kernel.php
+
+```
+use Laravel\Airlock\Http\Middleware\EnsureFrontendRequestsAreStateful;
+```
+
+and 
+
+```
+'api' => [
+    EnsureFrontendRequestsAreStateful::class,
+    'throttle:60,1',
+    \Illuminate\Routing\Middleware\SubstituteBindings::class,
+],
+```
+
+# Usefull commands
+
+Internal server
 ```
 php artisan serve
 ```
 
-# Compile Assets
-
+Compile assets - Once
 ```
 npm run dev
 ```
-ou
+
+Compile assets - watch 
 ```
 npm run watch
 ```
 
-- Mix config : webpack.mix.js
-- [More](https://laravel.com/docs/6.x/mix)
+Make migration
+```
+php artisan make:migration create_users_table --create=users
+php artisan make:migration add_votes_to_users_table --table=users
+```
 
-# Create Database 
-
-## Migrate
-
+Migrate
 ```
 php artisan migrate
 ```
-
-## Seed
 
 ```
 php artisan db:seed --class=ClientsTableSeeder
 ```
 
-**(Projects seeder launch with Clients seeder)**
+# References
+
+- Mix config : webpack.mix.js
+- [More](https://laravel.com/docs/6.x/mix)
+
