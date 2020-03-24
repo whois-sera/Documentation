@@ -1,0 +1,89 @@
+version: '3.7'
+
+networks:
+  seraplanning:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - seraplanning
+
+  mysql:
+    image: mysql:latest
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: seraplanning
+      MYSQL_DATABASE: seraplanning
+      MYSQL_USER: seraplanning
+      MYSQL_PASSWORD: seraplanning
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    networks:
+      - seraplanning
+
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - seraplanning
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: unless-stopped
+    ports:
+    - 8800:80
+    environment:
+      PMA_PASSWORD: seraplanning
+      MYSQL_ROOT_PASSWORD: seraplanning
+      MYSQL_PASSWORD: seraplanning
+      PMA_HOSTS: mysql
+    networks:
+      - seraplanning
+
+  composer:
+    image: composer:latest
+    command: composer install
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    networks:
+      - seraplanning
+
+  npm:
+    image: node:latest
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+
+  artisan:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mysql
+    working_dir: /var/www/html
+    entrypoint: ['/var/www/html/artisan']
+    networks:
+      - seraplanning

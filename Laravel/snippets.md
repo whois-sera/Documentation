@@ -43,8 +43,6 @@ public function run()
 }
 ```
 
-
-
 # Json return
 
 ```

@@ -3,7 +3,7 @@
 # Install
 
 ```
-composer create-project --prefer-dist laravel/laravel seraplanning
+composer create-project --prefer-dist laravel/laravel myProject
 ```
 
 ## After Install
