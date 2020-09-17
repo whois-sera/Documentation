@@ -1,90 +1,16 @@
-# Usefull Command
-- List Branch:
-  ```
-  git branch -a
-  ```
+# Common Commands
 
-# GitFlow
+- Add modified files
+  `git add .`
 
-## Feature Branch
+- Create Mybranch and moove on it
+  `git chechout -b myBranch`
 
-- **Create from Dev**
-- **Merge into Dev**
-- **Name: MyFeature**
+- Moove on Mybranch
+  `git chechout myBranch`
 
-### Creation
-```
-git checkout -b myFeature develop
-```
+- Commit with the message
+  `git commit -m "My Message"`
 
-### Atomic Commit
-- Pour chaque modification (la plus petit possible)
-```
-git commit -m "resume"
-```
-
-### Merge
-```
-git checkout develop
-git merge --no-ff myFeature
-git branch -d myFeature
-(git push origin develop)
-```
-
-## Release Branch
-
-- **Create from Dev**
-- **Merge into Dev and Master**
-- **Name: release-x**
-
-### Creation
-```
-git checkout -b release-x develop
-```
-
-### Atomic Commit
-- Pour chaque modification (la plus petit possible)
-```
-git commit -m "resume"
-```
-
-### Merge
-```
-git checkout master
-git merge --no-ff release-x
-git tag -a x
-(git push origin master)
-git checkout develop
-git merge --no-ff release-x
-git branch -d release-x
-(git push origin master)
-```
-
-## Hotfixe Branch
-
-- **Create from Master**
-- **Merge into Dev and Master**
-- **Name: hotfix-x**
-
-### Creation
-```
-git checkout -b hotfix-x master
-```
-
-### Atomic Commit
-- Pour chaque modification (la plus petit possible)
-```
-git commit -m "resume"
-```
-
-### Merge
-```
-git checkout master
-git merge --no-ff hotfix-x
-git tag -a x
-(git push origin master)
-git checkout develop
-git merge --no-ff hotfix-x
-git branch -d hotfix-x
-(git push origin master)
-```
+- Merge Mybranch into the currant branch without deleting MyBranch
+  `git merge --no-ff MyBranch`
