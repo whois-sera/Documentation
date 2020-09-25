@@ -1,11 +1,9 @@
-# Soft
-
-- `sudo apt install neofetch`
-
 # Commandes 
 
 - `raspi-config`
 - `neofetch`
-- `htop`
-- `netstat`
-- `netstat -pnltu`
+- `htop` System Monitoring
+- `netstat` Network Monitoring
+- `netstat -pnltu` 
+- `sudo apti install neofetch` Rapid System Informations
+- `sudo apti install ranger` File Manager
