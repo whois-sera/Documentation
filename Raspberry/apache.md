@@ -10,6 +10,11 @@
 - `sudo service apache2 restart|start|stop `
 - `sudo systemctl apache2 enable`
 
+## Change php version for apache
+
+- `sudo a2dismod php7.3`
+- `sudo a2enmod php.7.4`
+
 ## SSL Activation
 
 - `sudo a2enmod ssl`
@@ -63,7 +68,7 @@
 - `sudo a2ensite domain.conf`
 - `sudo systemctl apache2 restart`
 
-# Reverse proxy SSL
+## Reverse proxy SSL
 
 - `sudo a2enmod proxy`
 - `sudo a2enmod proxy_http`
@@ -116,7 +121,7 @@
 </VirtualHost>
 ```
 
-# Conf for code-server
+## Conf for code-server
 
 ```
 <VirtualHost *:80>

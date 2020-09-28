@@ -11,4 +11,4 @@
 # Commands
 - `netstat -pnltu` Netstat preset
 - `sudo dpkg -l | gerp packagename` Check if packagename if installed
-- `netstat --type=service` List all services
+- `systemctl --type=service` List all services
