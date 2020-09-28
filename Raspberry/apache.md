@@ -17,13 +17,11 @@
 - `sudo systemctl reload apache2`
 - `apache2ctl -M | grep ssl`
 - `sudo apt install certbot python-certbot-apache`
+- Test auto renew `sudo certbot renew --dry-run`
 
 ## SSL Generation
 
 - `sudo certbot certonly --apache`
-
-- Test auto renew `sudo certbot renew --dry-run`
-
 
 ## vhost
 
@@ -108,7 +106,58 @@
   	SSLProxyVerify none
     ProxyPreserveHost Off
     
+    # L'app locale attend un acces https :
     ProxyPass / https://localhost:10000/
     ProxyPassReverse / https://localhost:10000/
+
+    # L'app locale attend un acces http :
+    # ProxyPass / http://localhost:10000/
+    # ProxyPassReverse / http://localhost:10000/
+</VirtualHost>
+```
+
+# Conf for code-server
+
+```
+<VirtualHost *:80>
+    ServerName code.whois-sera.com
+    ServerAlias code.whois-sera.com
+    ServerAdmin whois.sera@gmail.com
+    # Redirection 301  vers le site en HTTPS
+    Redirect permanent / https://code.whois-sera.com/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName code.whois-sera.com
+    ServerAlias www.code.whois-sera.com
+    ServerAdmin whois.sera@gmail.com
+    
+    RewriteEngine On
+	RewriteCond %{HTTP:Upgrade} =websocket
+	RewriteRule /(.*) ws://localhost:8080/$1 [P,QSA,L]
+	RewriteCond %{HTTP:Upgrade} !=websocket
+	RewriteRule /(.*) http://localhost:8080/$1 [P,QSA,L]
+ 
+    # directives obligatoires pour TLS
+    SSLEngine on
+	SSLCertificateFile    /etc/letsencrypt/live/code.whois-sera.com/fullchain.pem
+	SSLCertificateKeyFile   /etc/letsencrypt/live/code.whois-sera.com/privkey.pem
+ 
+	Header always set Strict-Transport-Security "max-age=15768000"
+ 
+	ErrorLog ${APACHE_LOG_DIR}/error.code.whois-sera.com.log
+    LogLevel warn
+	CustomLog ${APACHE_LOG_DIR}/access.code.whois-sera.com.log combined
+    
+    SSLProxyEngine on
+    ProxyRequests off
+    SSLProxyCheckPeerCN Off
+  	SSLProxyCheckPeerName Off
+  	SSLProxyVerify none
+    ProxyPreserveHost Off
+    
+    ProxyPass / http://localhost:8080/
+    ProxyPassReverse / http://localhost:8080/
+
 </VirtualHost>
 ```
