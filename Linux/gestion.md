@@ -9,6 +9,7 @@
 - `sudo apti install aptitude` Interface for Apt
 
 # Commands
+- `sudo passwd root` Activer utilisateur root
 - `netstat -pnltu` Netstat preset
 - `sudo dpkg -l | gerp packagename` Check if packagename if installed
 - `systemctl --type=service` List all services
