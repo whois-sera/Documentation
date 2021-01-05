@@ -72,13 +72,13 @@ function add_mypost_taxonomies() {
 		'name'              			=> _x( 'Taxo', 'taxonomy general name'),
 		'singular_name'     			=> _x( 'Taxo', 'taxonomy singular name'),
 		'search_items'      			=> __( 'Chercher Taxo'),
-		'all_items'        			=> __( 'Tous / Toutes les Taxo'),
+		'all_items'        			    => __( 'Tous / Toutes les Taxo'),
 		'edit_item'         			=> __( 'Editer Taxo'),
 		'update_item'       			=> __( 'Mettre à jour Taxo'),
-		'add_new_item'     			=> __( 'Ajouter Taxo'),
+		'add_new_item'     			    => __( 'Ajouter Taxo'),
 		'new_item_name'     			=> __( 'Valeur Taxo'),
-		'separate_items_with_commas'            => __( 'Séparer Taxo'),
-		'menu_name'                             => __( 'Taxo'),
+		'separate_items_with_commas'    => __( 'Séparer Taxo'),
+		'menu_name'                     => __( 'Taxo'),
 	);
 	$args_mypost_taxo = array(
 		'hierarchical'          => true,
